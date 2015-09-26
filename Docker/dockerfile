@@ -1,6 +1,8 @@
 #Use debian image
 FROM debian:latest
 
+MAINTAINER boisse_l <boisse_l@epita.fr>
+
 USER root
 # update and upgrade debian
 RUN apt-get update && apt-get -y upgrade && apt-get -y autoremove
