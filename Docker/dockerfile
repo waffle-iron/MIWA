@@ -36,3 +36,4 @@ RUN apt-get install -y mysql-server
 #Testing
 RUN java -version
 RUN javac -version
+RUN service --status-all
