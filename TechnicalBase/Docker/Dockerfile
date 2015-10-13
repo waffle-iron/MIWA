@@ -18,7 +18,7 @@ RUN echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 boolean tru
 RUN apt-get -y install oracle-java8-installer
 
 # Install tomcat 8
-RUN apt-get -y install tomcat8
+RUN apt-get -y install tomcat7
 RUN echo "JAVA_HOME=/usr/lib/jvm/java-8-oracle" >> /etc/default/tomcat8
 EXPOSE 8080
 
