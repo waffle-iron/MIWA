@@ -1,2 +1,0 @@
-# MIWA
-MIWA project
