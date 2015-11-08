@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-/**
- * Created by BadaBoum on 23/10/2015.
- */
 public class TimeManager {
 
     List<Application> allApplication;
@@ -58,6 +55,10 @@ public class TimeManager {
 
     public long getSpeed() {
         return Speed;
+    }
+
+    public void setSpeed(long speed) {
+        Speed = speed;
     }
 
     public void SpeedReset(){

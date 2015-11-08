@@ -3,9 +3,6 @@ package com.miwa.time;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by BadaBoum on 23/10/2015.
- */
 public class Application {
     private String Code;
     private List<Alarm> AlarmClock;

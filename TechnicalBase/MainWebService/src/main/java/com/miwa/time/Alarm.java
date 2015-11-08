@@ -7,9 +7,6 @@ import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
-/**
- * Created by BadaBoum on 23/10/2015.
- */
 public class Alarm{
 
     //le temps de reveil voulu
