@@ -2,7 +2,6 @@ package com.miwa.ws;
 
 import com.google.gson.Gson;
 import com.miwa.ws.model.Callback;
-import com.miwa.ws.model.SubscribedService;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
