@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.miwa.model.Callback" table="callback">
+        <id name="callbackid" type="java.lang.Integer">
+            <column name="CALLBACK_ID" />
+            <generator class="identity" />
+        </id>
+        <property name="cron" type="string">
+            <column name="CRON" length="100" not-null="true" unique="false" />
+        </property>
+        <property name="endpoint" type="string">
+            <column name="ENDPOINT" length="256" not-null="true" unique="false" />
+        </property>
+        <property name="message" type="string">
+            <column name="MESSAGE" length="500" not-null="false" unique="false" />
+        </property>
+
+        <many-to-one name="service" class="com.miwa.model.Service" fetch="select">
+            <column name="SERVICE_ID" not-null="true" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>

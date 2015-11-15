@@ -19,5 +19,6 @@
         <property name="hbm2ddl.auto">update</property>
         <!-- <mapping class="entities.Subscriber"/> -->
         <mapping resource="com/miwa/model/Service.hbm.xml"></mapping>
+        <mapping resource="com/miwa/model/Callback.hbm.xml"></mapping>
     </session-factory>
 </hibernate-configuration>
