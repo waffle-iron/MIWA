@@ -19,7 +19,7 @@ public class CallBackEndpoint {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getSubcribedApp() {
+    public Response getCallBack() {
         Gson gson = new Gson();
         List<Callback> callbacks = new CallBackDAO().getAll();
         return Response.status(200).entity(gson.toJson(PojoUtil.toPojo(callbacks))).build();
@@ -28,13 +28,16 @@ public class CallBackEndpoint {
     @POST
     @Consumes("text/plain")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response addApp(String message) {
+    public Response addCallback(String message) {
         Gson gson = new Gson();
         CallbackPOJO callbackPOJO = gson.fromJson(message, CallbackPOJO.class);
         Service service = new ServiceDAO().findByName(callbackPOJO.getService_name());
 
         Callback callback = new Callback(callbackPOJO.getCron(), callbackPOJO.getMessage(), callbackPOJO.getEndpoint(), service);
         new CallBackDAO().insert(callback);
+
+        // TODO Call com.miwa.time.[AClass].addCallback(callback)
+
         return Response.status(201).entity(gson.toJson(callbackPOJO)).build();
 
     }
