@@ -3,7 +3,7 @@ package com.miwa.ws;
 import com.google.gson.Gson;
 import com.miwa.dao.ServiceDAO;
 import com.miwa.model.Service;
-import com.miwa.ws.model.SubscribedService;
+import com.miwa.ws.pojo.SubscribedServicePOJO;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -26,7 +26,7 @@ public class ServiceEndpoint {
     @Produces(MediaType.APPLICATION_JSON)
     public Response addApp(String message) {
         Gson gson = new Gson();
-        SubscribedService service = gson.fromJson(message, SubscribedService.class);
+        SubscribedServicePOJO service = gson.fromJson(message, SubscribedServicePOJO.class);
 
         ServiceDAO serviceDAO = new ServiceDAO();
         serviceDAO.AddService(service.toModel());

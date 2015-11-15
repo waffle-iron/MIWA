@@ -1,9 +1,9 @@
-package com.miwa.ws.model;
+package com.miwa.ws.pojo;
 
-public class Speed {
+public class SpeedPOJO {
     private long speed = 42;
 
-    public Speed(long speed) {
+    public SpeedPOJO(long speed) {
         this.speed = speed;
     }
 

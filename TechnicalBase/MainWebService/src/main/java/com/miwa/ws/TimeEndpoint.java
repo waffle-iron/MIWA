@@ -2,7 +2,7 @@ package com.miwa.ws;
 
 import com.google.gson.Gson;
 import com.miwa.time.TimeManager;
-import com.miwa.ws.model.Speed;
+import com.miwa.ws.pojo.SpeedPOJO;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -15,8 +15,8 @@ public class TimeEndpoint {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getRatio() {
         Gson gson = new Gson();
-        Speed speed = new Speed(TimeManager.GetInstance().getSpeed());
-        return Response.status(200).entity(gson.toJson(speed)).build();
+        SpeedPOJO speedPOJO = new SpeedPOJO(TimeManager.GetInstance().getSpeed());
+        return Response.status(200).entity(gson.toJson(speedPOJO)).build();
     }
 
     @PUT
@@ -24,8 +24,8 @@ public class TimeEndpoint {
     @Produces(MediaType.APPLICATION_JSON)
     public Response setRatio(String message) {
         Gson gson = new Gson();
-        Speed speed = gson.fromJson(message, Speed.class);
-        TimeManager.GetInstance().setSpeed(speed.getSpeed());
-        return Response.status(201).entity(gson.toJson(speed)).build();
+        SpeedPOJO speedPOJO = gson.fromJson(message, SpeedPOJO.class);
+        TimeManager.GetInstance().setSpeed(speedPOJO.getSpeed());
+        return Response.status(201).entity(gson.toJson(speedPOJO)).build();
     }
 }

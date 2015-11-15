@@ -1,7 +1,7 @@
 package com.miwa.ws;
 
 import com.google.gson.Gson;
-import com.miwa.ws.model.Callback;
+import com.miwa.ws.pojo.CallbackPOJO;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -13,14 +13,14 @@ import java.util.List;
 public class CallBackEndpoint {
 
     //TODO remove this
-    private static List<Callback> callbacks = new LinkedList<Callback>();
+    private static List<CallbackPOJO> callbackPOJOs = new LinkedList<CallbackPOJO>();
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getSubcribedApp() {
         Gson gson = new Gson();
         // TODO get services in Database
-        return Response.status(200).entity(gson.toJson(callbacks)).build();
+        return Response.status(200).entity(gson.toJson(callbackPOJOs)).build();
     }
 
     @POST
@@ -28,11 +28,11 @@ public class CallBackEndpoint {
     @Produces(MediaType.APPLICATION_JSON)
     public Response addApp(String message) {
         Gson gson = new Gson();
-        Callback callback = gson.fromJson(message, Callback.class);
+        CallbackPOJO callbackPOJO = gson.fromJson(message, CallbackPOJO.class);
 
         // TODO add service in Database
-        callbacks.add(callback);
-        return Response.status(201).entity(gson.toJson(callback)).build();
+        callbackPOJOs.add(callbackPOJO);
+        return Response.status(201).entity(gson.toJson(callbackPOJO)).build();
 
     }
 }
