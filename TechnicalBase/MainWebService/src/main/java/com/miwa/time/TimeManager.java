@@ -1,5 +1,7 @@
 package com.miwa.time;
 
+import com.miwa.model.Callback;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -25,14 +27,10 @@ public class TimeManager {
         Speed = 1;
     }
 
-    public void AddApplication(Application a) {
-        allApplication.add(a);
-    }
+    public void AddAlarmToApplication(Callback callback, String alarmCode){
+        Alarm alarmClock = new Alarm(alarmCode, callback);
 
-    public void AddAlarmToApplication(String applicationCode, Date d, String alarmCode){
-        Alarm alarmClock = new Alarm(d, alarmCode);
-
-        Application a = FindApplication(applicationCode);
+        Application a = FindApplication(callback.getService().getName());
 
         a.AddAlarm(alarmClock);
     }
@@ -44,7 +42,8 @@ public class TimeManager {
             }
         }
 
-        return null;
+        Application application = new Application(applicationCode);
+        return application;
     }
 
     public void Refresh() {

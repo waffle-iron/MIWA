@@ -5,6 +5,7 @@ import com.miwa.dao.CallBackDAO;
 import com.miwa.dao.ServiceDAO;
 import com.miwa.model.Callback;
 import com.miwa.model.Service;
+import com.miwa.time.TimeManager;
 import com.miwa.util.PojoUtil;
 import com.miwa.ws.pojo.CallbackPOJO;
 
@@ -36,7 +37,7 @@ public class CallBackEndpoint {
         Callback callback = new Callback(callbackPOJO.getCron(), callbackPOJO.getMessage(), callbackPOJO.getEndpoint(), service);
         new CallBackDAO().insert(callback);
 
-        // TODO Call com.miwa.time.[AClass].addCallback(callback)
+        TimeManager.GetInstance().AddAlarmToApplication(callback, callback.getCallbackid().toString());
 
         return Response.status(201).entity(gson.toJson(callbackPOJO)).build();
 

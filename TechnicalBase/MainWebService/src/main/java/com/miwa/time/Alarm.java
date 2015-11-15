@@ -1,6 +1,9 @@
 package com.miwa.time;
 
+import com.cronutils.model.Cron;
+import com.miwa.model.Callback;
 import com.miwa.time.Message.SendMessage;
+import com.miwa.time.ParserCron.ParseCron;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -22,15 +25,23 @@ public class Alarm{
     private SendMessage message;
     private boolean isTerminated;
 
-    public Alarm(Date clock, String code) {
-        Clock = clock;
+    private Callback callback;
+
+    public Alarm(String code, Callback callback) {
+
+        ParseCron parseCron = new ParseCron();
+        Cron parse = parseCron.parse(callback.getMessage());
+
+        Clock = parseCron.nextExecution(new Date(), parse);
         AlarmCode = code;
 
         TimerClock = new Timer(false);
         message = new SendMessage();
         message.message = AlarmCode;
+        message.callback = callback;
+        this.callback = callback;
 
-        setCalculatedClock(clock);
+        setCalculatedClock(Clock);
     }
 
     public void Refresh(){
