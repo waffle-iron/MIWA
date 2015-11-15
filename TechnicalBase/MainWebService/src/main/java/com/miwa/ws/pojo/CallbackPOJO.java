@@ -27,4 +27,8 @@ public class CallbackPOJO {
     public String getEndpoint() {
         return endpoint;
     }
+
+    public void setService_name(String service_name) {
+        this.service_name = service_name;
+    }
 }
