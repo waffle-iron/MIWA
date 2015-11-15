@@ -2,7 +2,7 @@ Pour lancer le projet il vous faut
 Maven
 Java 1.8
 
-Comment lancer le projet
+#Comment lancer le projet
 
 
 Si vous avez installé maven sur votre ordinateur
@@ -15,4 +15,10 @@ Une fois le projet lancé, pour vérifier que tout marche bien:
 
 Allez sur [Ce lien](http://127.0.0.1:8080/miwa/api/time)
 
-Normalement vous allez recevoir ```{"speed":1}```
+Normalement vous allez recevoir
+```json
+{"speed":1}
+```
+
+
+
