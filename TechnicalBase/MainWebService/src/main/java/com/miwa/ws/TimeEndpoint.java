@@ -9,7 +9,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 @Path("/time")
-public class Time {
+public class TimeEndpoint {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
