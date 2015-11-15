@@ -1,4 +1,4 @@
-package com.miwa.ws;
+package com.miwa.ws.ressource;
 
 import com.google.gson.Gson;
 import com.miwa.dao.ServiceDAO;
