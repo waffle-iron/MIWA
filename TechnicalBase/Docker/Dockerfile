@@ -22,6 +22,11 @@ RUN apt-get -y install tomcat7
 RUN echo "JAVA_HOME=/usr/lib/jvm/java-8-oracle" >> /etc/default/tomcat8
 EXPOSE 8080
 
+#Clean webapp folder
+RUN rm -rf /var/lib/tomcat7/webapps/*
+
+
+
 #Install mysql
 RUN echo "deb http://repo.mysql.com/apt/debian/ wheezy mysql-5.6" > /etc/apt/sources.list.d/mysql.list
 RUN apt-key adv --keyserver ha.pool.sks-keyservers.net --recv-keys A4A9406876FCBD3C456770C88C718D3B5072E1F5
