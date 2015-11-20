@@ -19,7 +19,7 @@ RUN apt-get -y install oracle-java8-installer
 
 # Install tomcat 8
 RUN apt-get -y install tomcat7
-RUN echo "JAVA_HOME=/usr/lib/jvm/java-8-oracle" >> /etc/default/tomcat8
+RUN echo "JAVA_HOME=/usr/lib/jvm/java-8-oracle" >> /etc/default/tomcat7
 EXPOSE 8080
 
 #Clean webapp folder
