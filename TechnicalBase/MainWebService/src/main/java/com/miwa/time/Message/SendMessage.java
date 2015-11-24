@@ -16,7 +16,7 @@ public class SendMessage{
         WebResource webResource = client
                 .resource(callback.getService().getHostname()+ ":" +String.valueOf(callback.getService().getPort()) + callback.getEndpoint());
 
-        ClientResponse response = webResource.accept("application/json")
+        ClientResponse response = webResource.type("application/json")
                 .post(ClientResponse.class, message);
 
         if (response.getStatus() != 201) {
