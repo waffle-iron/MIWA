@@ -20,7 +20,7 @@ public class TimeEndpoint {
     }
 
     @PUT
-    @Consumes("application/json")
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response setRatio(String message) {
         Gson gson = new Gson();
