@@ -30,7 +30,7 @@ public class Alarm{
     public Alarm(String code, Callback callback) {
 
         ParseCron parseCron = new ParseCron();
-        Cron parse = parseCron.parse(callback.getMessage());
+        Cron parse = parseCron.parse(callback.getCron());
 
         Clock = parseCron.nextExecution(new Date(), parse);
         AlarmCode = code;
@@ -75,28 +75,32 @@ public class Alarm{
             public void run() {
                 message.send();
 
-                if (isRecurDay() || isRecurMonth() || isRecurDay()) {
+//                if (isRecurDay() || isRecurMonth() || isRecurDay()) {
 
-                    Calendar c = Calendar.getInstance();
-                    c.setTime(getClock());
-                    c.add(Calendar.DATE, 1);
+//                    Calendar c = Calendar.getInstance();
+//                    c.setTime(getClock());
+//                    c.add(Calendar.DATE, 1);
+//
+//                    if (isRecurMonth()) {
+//                        c.add(Calendar.YEAR, 1);
+//                    }
+//
+//                    if (isRecurDay()) {
+//                        c.add(Calendar.MONTH, 1);
+//                    }
+//
+//                    if (isRecurHour()) {
+//                        c.add(Calendar.DAY_OF_MONTH, 1);
+//                    }
+                ParseCron parseCron = new ParseCron();
+                Cron parse = parseCron.parse(callback.getCron());
 
-                    if (isRecurMonth()) {
-                        c.add(Calendar.YEAR, 1);
-                    }
-
-                    if (isRecurDay()) {
-                        c.add(Calendar.MONTH, 1);
-                    }
-
-                    if (isRecurHour()) {
-                        c.add(Calendar.DAY_OF_MONTH, 1);
-                    }
-                    setClock(c.getTime());
-                }
-                else {
-                    setIsTerminated(true);
-                }
+                Date d = parseCron.nextExecution(new Date(), parse);
+                setClock(d);
+//                }
+//                else {
+//                    setIsTerminated(true);
+//                }
             }
         };
 

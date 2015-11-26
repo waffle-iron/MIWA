@@ -17,7 +17,7 @@ import java.util.Date;
 public class ParseCron {
 //https://github.com/jmrozanec/cron-utils
     CronDefinition cronDefinition;
-    public ParseCron(){
+    public ParseCron() {
         //create a parser based on provided definition
         cronDefinition =
                 CronDefinitionBuilder.defineCron()
@@ -35,17 +35,19 @@ public class ParseCron {
                         .instance();
     }
 
-    public Cron parse(String message){
-//        //Validate if a string expression matches a cron definition:
-//        CronValidator quartzValidator = new CronValidator(cronDefinition);
-//
-//        //getting a boolean result:
-//        quartzValidator.isValid("0 23 ? * * MON-FRI *");
+    public Cron parse(String message) {
+        //Validate if a string expression matches a cron definition:
+        CronValidator quartzValidator = new CronValidator(cronDefinition);
 
+        //getting a boolean result:
+        if (quartzValidator.isValid(message)) {
         CronParser parser = new CronParser(cronDefinition);
+
         Cron cron = parser.parse(message);
 
         return cron;
+        }
+        return null;
     }
 
     public Date nextExecution(Date now, Cron cronMessage){
