@@ -5,7 +5,6 @@ import com.miwa.model.Callback;
 import com.miwa.time.Message.SendMessage;
 import com.miwa.time.ParserCron.ParseCron;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -14,38 +13,20 @@ public class Alarm{
 
     //le temps de reveil voulu
     private Date Clock;
-    private Date CalculatedClock;
-
-    private boolean RecurMonth;
-    private boolean RecurDay;
-    private boolean RecurHour;
-
-    private String AlarmCode;
     private Timer TimerClock;
     private SendMessage message;
-    private boolean isTerminated;
-
     private Callback callback;
+    private Cron parse;
 
-    public Alarm(String code, Callback callback) {
-
-        ParseCron parseCron = new ParseCron();
-        Cron parse = parseCron.parse(callback.getCron());
-
-        Clock = parseCron.nextExecution(new Date(), parse);
-        AlarmCode = code;
+    public Alarm(Callback callback) throws Exception {
+        parse = ParseCron.GetInstance().parse(callback.getCron());
 
         TimerClock = new Timer(false);
         message = new SendMessage();
-        message.message = AlarmCode;
         message.callback = callback;
         this.callback = callback;
 
-        setCalculatedClock(Clock);
-    }
-
-    public void Refresh(){
-        setCalculatedClock(getClock());
+        refresh();
     }
 
     public Date getClock() {
@@ -54,19 +35,20 @@ public class Alarm{
 
     public void setClock(Date clock) {
         Clock = clock;
-        setCalculatedClock(clock);
+        refresh();
     }
 
-    public Date getCalculatedClock() {
-        return CalculatedClock;
+    public Callback getCallback() {
+        return callback;
     }
 
-    public void setCalculatedClock(Date calculatedClock) {
+    public void stopAlarm(){
+        TimerClock.cancel();
 
-        Long now = new Date().getTime();
-        CalculatedClock = new Date((calculatedClock.getTime() - now)
-                / TimeManager.GetInstance().getSpeed() + now);
+        TimeManager.GetInstance().deleteAlarm(getCallback().getCallbackid());
+    }
 
+    public void refresh() {
         TimerClock.cancel();
         TimerClock = new Timer(false);
 
@@ -74,45 +56,19 @@ public class Alarm{
             @Override
             public void run() {
                 message.send();
-
-//                if (isRecurDay() || isRecurMonth() || isRecurDay()) {
-
-//                    Calendar c = Calendar.getInstance();
-//                    c.setTime(getClock());
-//                    c.add(Calendar.DATE, 1);
-//
-//                    if (isRecurMonth()) {
-//                        c.add(Calendar.YEAR, 1);
-//                    }
-//
-//                    if (isRecurDay()) {
-//                        c.add(Calendar.MONTH, 1);
-//                    }
-//
-//                    if (isRecurHour()) {
-//                        c.add(Calendar.DAY_OF_MONTH, 1);
-//                    }
-                ParseCron parseCron = new ParseCron();
-                Cron parse = parseCron.parse(callback.getCron());
-
-                Date d = parseCron.nextExecution(new Date(), parse);
-                setClock(d);
-//                }
-//                else {
-//                    setIsTerminated(true);
-//                }
+                refresh();
             }
         };
 
-        TimerClock.schedule(task, getCalculatedClock());
-    }
+        Clock = ParseCron.GetInstance()
+                .nextExecution(TimeManager.GetInstance().calculatedSpeedTime(new Date()), parse);
 
-    public boolean isTerminated() {
-        return isTerminated;
-    }
+        if (getClock() == null){
+            stopAlarm();
+        }
 
-    public void setIsTerminated(boolean isTerminated) {
-        this.isTerminated = isTerminated;
+        Date time = TimeManager.GetInstance().calculatedSpeedTime(getClock());
+        TimerClock.schedule(task, time);
     }
 
     public SendMessage getMessage() {
@@ -129,37 +85,5 @@ public class Alarm{
 
     public void setTimerClock(Timer timerClock) {
         TimerClock = timerClock;
-    }
-
-    public void setAlarmCode(String alarmCode) {
-        AlarmCode = alarmCode;
-    }
-
-    public boolean isRecurMonth() {
-        return RecurMonth;
-    }
-
-    public void setRecurMonth(boolean recurMonth) {
-        RecurMonth = recurMonth;
-    }
-
-    public boolean isRecurDay() {
-        return RecurDay;
-    }
-
-    public void setRecurDay(boolean recurDay) {
-        RecurDay = recurDay;
-    }
-
-    public boolean isRecurHour() {
-        return RecurHour;
-    }
-
-    public void setRecurHour(boolean recurHour) {
-        RecurHour = recurHour;
-    }
-
-    public String getAlarmCode() {
-        return AlarmCode;
     }
 }

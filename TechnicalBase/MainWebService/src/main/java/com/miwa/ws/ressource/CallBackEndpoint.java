@@ -37,9 +37,12 @@ public class CallBackEndpoint {
         Callback callback = new Callback(callbackPOJO.getCron(), callbackPOJO.getMessage(), callbackPOJO.getEndpoint(), service);
         new CallBackDAO().insert(callback);
 
-        TimeManager.GetInstance().AddAlarmToApplication(callback, callback.getCallbackid().toString());
-
-        return Response.status(201).entity(gson.toJson(callbackPOJO)).build();
-
+        try{
+            TimeManager.GetInstance().AddAlarmToApplication(callback);
+            return Response.status(201).entity(gson.toJson(callbackPOJO)).build();
+        }
+        catch (Exception e){
+            return Response.status(400).entity(gson.toJson(e.getMessage())).build();
+        }
     }
 }

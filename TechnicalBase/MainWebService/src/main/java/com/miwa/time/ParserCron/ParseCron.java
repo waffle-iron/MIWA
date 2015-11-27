@@ -6,6 +6,7 @@ import com.cronutils.model.definition.CronDefinitionBuilder;
 import com.cronutils.model.time.ExecutionTime;
 import com.cronutils.parser.CronParser;
 import com.cronutils.validator.CronValidator;
+import com.miwa.time.TimeManager;
 import org.joda.time.DateTime;
 
 import java.util.Date;
@@ -15,9 +16,12 @@ import java.util.Date;
  * Created by BadaBoum on 15/11/2015.
  */
 public class ParseCron {
+    private static ParseCron pc;
+
 //https://github.com/jmrozanec/cron-utils
     CronDefinition cronDefinition;
-    public ParseCron() {
+
+    private  ParseCron() {
         //create a parser based on provided definition
         cronDefinition =
                 CronDefinitionBuilder.defineCron()
@@ -35,29 +39,43 @@ public class ParseCron {
                         .instance();
     }
 
-    public Cron parse(String message) {
+    public static ParseCron GetInstance() {
+        if (pc == null){
+            pc = new ParseCron();
+        }
+
+        return pc;
+    }
+
+    public Cron parse(String message) throws Exception {
         //Validate if a string expression matches a cron definition:
         CronValidator quartzValidator = new CronValidator(cronDefinition);
 
         //getting a boolean result:
         if (quartzValidator.isValid(message)) {
-        CronParser parser = new CronParser(cronDefinition);
+            CronParser parser = new CronParser(cronDefinition);
 
-        Cron cron = parser.parse(message);
+            Cron cron = parser.parse(message);
 
-        return cron;
+            return cron;
         }
-        return null;
+
+        throw new Exception("Cron not correct : ss mm hh dayMonth Month dayWeek. example 0 * * * *");
     }
 
     public Date nextExecution(Date now, Cron cronMessage){
 
-        DateTime dtNow = new DateTime(now);
+        DateTime dtNow = new DateTime(TimeManager.GetInstance().calculatedSpeedTime(now));
 //Get date for last execution
         ExecutionTime executionTime = ExecutionTime.forCron(cronMessage);
 //Get date for next execution
         DateTime nextExecution = executionTime.nextExecution(dtNow);
+        Date nextDate = nextExecution.toDate();
 
-        return nextExecution.toDate();
+        if (now.getTime() > nextDate.getTime()) {
+            return null;
+        }
+        return nextDate;
+
     }
 }

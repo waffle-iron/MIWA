@@ -8,9 +8,9 @@ import java.util.List;
 
 public class TimeManager {
 
-    List<Application> allApplication;
     private long Speed;
 
+    private List<Alarm> alarms;
 
     static TimeManager tm;
 
@@ -23,32 +23,19 @@ public class TimeManager {
     }
 
     private TimeManager() {
-        allApplication = new ArrayList<Application>();
         Speed = 1;
+        alarms = new ArrayList<Alarm>();
     }
 
-    public void AddAlarmToApplication(Callback callback, String alarmCode){
-        Alarm alarmClock = new Alarm(alarmCode, callback);
+    public void AddAlarmToApplication(Callback callback) throws Exception {
+        Alarm alarmClock = new Alarm(callback);
+        alarms.add(alarmClock);
 
-        Application a = FindApplication(callback.getService().getName());
-
-        a.AddAlarm(alarmClock);
     }
 
-    public Application FindApplication(String applicationCode) {
-        for (Application a : allApplication){
-            if (a.getCode() == applicationCode){
-                return a;
-            }
-        }
-
-        Application application = new Application(applicationCode);
-        return application;
-    }
-
-    public void Refresh() {
-        for(Application a : allApplication){
-            a.Refresh();
+    public void refresh() {
+        for(Alarm a : alarms){
+            a.refresh();
         }
     }
 
@@ -58,24 +45,28 @@ public class TimeManager {
 
     public void setSpeed(long speed) {
         Speed = speed;
+        refresh();
     }
 
-    public void SpeedReset(){
-        Speed = 1;
+    public Date calculatedSpeedTime(Date time){
+        Date now = new Date();
+        Date temp = new Date(time.getTime());
 
-        Refresh();
+        long time1 = temp.getTime();
+        long time2 = now.getTime();
+        temp = new Date(((time1 - time2)
+                / getSpeed()) + time2);
+
+        return temp;
     }
 
-    public void SpeedUp() {
-        Speed += Constant.Unit;
-
-        Refresh();
+    public void deleteAlarm(int callBackID){
+        for(Alarm a : alarms){
+            if (a.getCallback().getCallbackid() == callBackID){
+                a.stopAlarm();
+                alarms.remove(a);
+                break;
+            }
+        }
     }
-
-    public void SpeedDown() {
-        Speed -= Constant.Unit;
-
-        Refresh();
-    }
-
 }
