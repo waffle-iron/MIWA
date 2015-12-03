@@ -30,6 +30,8 @@ RUN apt-get update
 RUN apt-get install -y mysql-server
 
 
+EXPOSE 9000
+
 #Testing
 RUN java -version
 RUN javac -version
