@@ -23,18 +23,20 @@ public class CallBackEndpoint {
     public Response getCallBack() {
         Gson gson = new Gson();
         List<Callback> callbacks = new CallBackDAO().getAll();
+        System.out.println("there is " + callbacks.size());
         return Response.status(200).entity(gson.toJson(PojoUtil.toPojo(callbacks))).build();
     }
 
     @POST
-    @Consumes("text/plain")
+    @Consumes("application/json")
     @Produces(MediaType.APPLICATION_JSON)
     public Response addCallback(String message) {
+
         Gson gson = new Gson();
         CallbackPOJO callbackPOJO = gson.fromJson(message, CallbackPOJO.class);
         Service service = new ServiceDAO().findByName(callbackPOJO.getService_name());
 
-        Callback callback = new Callback(callbackPOJO.getCron(), callbackPOJO.getMessage(), callbackPOJO.getEndpoint(), service);
+        Callback callback = new Callback(callbackPOJO.getCron(), callbackPOJO.getMessage(), callbackPOJO.getEndpoint(), service, callbackPOJO.getRequest_type());
         new CallBackDAO().insert(callback);
 
         try{

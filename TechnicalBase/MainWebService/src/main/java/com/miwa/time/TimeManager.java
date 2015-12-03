@@ -30,7 +30,6 @@ public class TimeManager {
     public void AddAlarmToApplication(Callback callback) throws Exception {
         Alarm alarmClock = new Alarm(callback);
         alarms.add(alarmClock);
-
     }
 
     public void refresh() {

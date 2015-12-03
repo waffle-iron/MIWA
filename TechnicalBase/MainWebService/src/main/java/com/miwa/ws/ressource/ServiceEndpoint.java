@@ -22,7 +22,7 @@ public class ServiceEndpoint {
     }
 
     @POST
-    @Consumes("text/plain")
+    @Consumes("application/json")
     @Produces(MediaType.APPLICATION_JSON)
     public Response addApp(String message) {
         Gson gson = new Gson();

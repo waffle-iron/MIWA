@@ -1,11 +1,9 @@
 package com.miwa.model;
 
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
 import java.io.Serializable;
 
-public class Service implements Serializable{
+public class Service implements Serializable {
     private Integer serviceid;
     private String name;
     private String hostname;

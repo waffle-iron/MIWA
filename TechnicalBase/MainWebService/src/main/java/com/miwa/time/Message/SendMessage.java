@@ -7,7 +7,6 @@ import com.sun.jersey.api.client.WebResource;
 
 public class SendMessage{
 
-    public String message;
     public Callback callback;
 
     public void send() {
@@ -16,14 +15,45 @@ public class SendMessage{
         WebResource webResource = client
                 .resource(callback.getService().getHostname()+ ":" +String.valueOf(callback.getService().getPort()) + callback.getEndpoint());
 
-        ClientResponse response = webResource.type("application/json")
-                .post(ClientResponse.class, message);
+        ClientResponse response;
+        if ("POST".equals(callback.getRequestType()))
+        {
+            System.out.println("send post request");
+            response = webResource.type("application/json")
+                    .post(ClientResponse.class, callback.getMessage());
 
-        if (response.getStatus() != 201) {
-            // Si on ne me renvoie pas 201 il y a eu un soucis
-            throw new RuntimeException("Failed : HTTP error code : " + response.getStatus());
+            if (response.getStatus() != 201) {
+                throw new RuntimeException("Failed : HTTP error code : " + response.getStatus());
+            }
         }
+        else if ("PUT".equals(callback.getRequestType()))
+        {
+            System.out.println("send put request");
+            response = webResource.type("application/json")
+                    .put(ClientResponse.class, callback.getMessage());
 
+            if (response.getStatus() != 200) {
+                throw new RuntimeException("Failed : HTTP error code : " + response.getStatus());
+            }
+        }
+        else if ("DELETE".equals(callback.getRequestType()))
+        {
+            System.out.println("send delete request");
+            response = webResource.type("application/json")
+                    .delete(ClientResponse.class, callback.getMessage());
+
+            if (response.getStatus() != 200) {
+                throw new RuntimeException("Failed : HTTP error code : " + response.getStatus());
+            }
+        }
+        else
+        {
+            System.out.println("send get request");
+            response = webResource.get(ClientResponse.class);
+            if (response.getStatus() != 200) {
+                throw new RuntimeException("Failed : HTTP error code : " + response.getStatus());
+            }
+        }
     }
 }
 

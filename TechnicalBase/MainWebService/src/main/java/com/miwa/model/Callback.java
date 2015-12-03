@@ -6,6 +6,18 @@ public class Callback {
     private String message;
     private String endpoint;
     private Service service;
+    private String requestType;
+
+    public Callback() {
+    }
+
+    public Callback(String cron, String message, String endpoint, Service service, String requestType) {
+        this.cron = cron;
+        this.message = message;
+        this.endpoint = endpoint;
+        this.service = service;
+        this.requestType = requestType;
+    }
 
     public Integer getCallbackid() {
         return callbackid;
@@ -47,13 +59,12 @@ public class Callback {
         this.service = service;
     }
 
-    public Callback(String cron, String message, String endpoint, Service service) {
-        this.cron = cron;
-        this.message = message;
-        this.endpoint = endpoint;
-        this.service = service;
+    public String getRequestType() {
+        return requestType;
     }
 
-    public Callback() {
+    public void setRequestType(String requestType) {
+        this.requestType = requestType;
     }
+
 }
