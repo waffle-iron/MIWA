@@ -22,8 +22,8 @@ RUN echo "deb http://repo.mysql.com/apt/debian/ wheezy mysql-5.6" > /etc/apt/sou
 RUN apt-key adv --keyserver ha.pool.sks-keyservers.net --recv-keys A4A9406876FCBD3C456770C88C718D3B5072E1F5
 RUN { \
     echo mysql-community-server mysql-community-server/data-dir select ''; \
-    echo mysql-community-server mysql-community-server/root-pass password ''; \
-    echo mysql-community-server mysql-community-server/re-root-pass password ''; \
+    echo mysql-community-server mysql-community-server/root-pass password 'root'; \
+    echo mysql-community-server mysql-community-server/re-root-pass password 'root'; \
     echo mysql-community-server mysql-community-server/remove-test-db select false; \
 } | debconf-set-selections
 RUN apt-get update
@@ -36,3 +36,7 @@ EXPOSE 9000
 RUN java -version
 RUN javac -version
 RUN service --status-all
+
+VOLUME /root
+
+ENTRYPOINT ["/root/tpmiwa-1.0/bin/tpmiwa"]
