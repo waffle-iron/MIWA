@@ -26,4 +26,4 @@ RUN javac -version
 
 VOLUME /root
 
-CMD ["/root/bin/app"]
+CMD ["/root/bin/app", "-Dhttp.port=8080"]
