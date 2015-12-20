@@ -18,12 +18,8 @@ RUN echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 boolean tru
 # Install Oracle Java
 RUN apt-get -y install oracle-java8-installer
 
-EXPOSE 8080
-
-#Testing
-RUN java -version
-RUN javac -version
+EXPOSE 80
 
 VOLUME /root
 
-CMD ["/root/bin/app", "-Dhttp.port=8080"]
+CMD ["/root/bin/app", "-Dhttp.port=80"]
