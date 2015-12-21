@@ -25,6 +25,4 @@ EXPOSE 8181
 
 VOLUME /root
 
-RUN cd /root
-
-CMD ["mvn", "tomcat7:run"]
+ENTRYPOINT mvn -f /root/pom.xml tomcat7:run
