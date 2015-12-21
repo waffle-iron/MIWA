@@ -21,6 +21,8 @@ RUN apt-get -y install oracle-java8-installer
 #install maven
 RUN apt-get -y install maven
 
+RUN mvn -v
+
 EXPOSE 8181
 
 VOLUME /root
