@@ -26,14 +26,6 @@ public class CallBackEndpoint {
         return Response.status(200).entity(gson.toJson(PojoUtil.toPojo(callbacks))).build();
     }
 
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getCurrentDate() {
-        Gson gson = new Gson();
-
-        return Response.status(200).entity(gson.toJson(TimeManager.GetInstance().getCurrentDate())).build();
-    }
-
     @POST
     @Consumes("application/json")
     @Produces(MediaType.APPLICATION_JSON)

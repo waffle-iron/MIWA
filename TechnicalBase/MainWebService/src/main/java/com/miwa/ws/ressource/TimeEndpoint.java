@@ -28,4 +28,12 @@ public class TimeEndpoint {
         TimeManager.GetInstance().setSpeed(speedPOJO.getSpeed());
         return Response.status(201).entity(gson.toJson(speedPOJO)).build();
     }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getCurrentDate() {
+        Gson gson = new Gson();
+
+        return Response.status(200).entity(gson.toJson(TimeManager.GetInstance().getCurrentDate())).build();
+    }
 }
