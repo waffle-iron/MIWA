@@ -17,7 +17,6 @@ import java.util.List;
 @Path("/callback")
 public class CallBackEndpoint {
 
-
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getCallBack() {
@@ -25,6 +24,14 @@ public class CallBackEndpoint {
         List<Callback> callbacks = new CallBackDAO().getAll();
         System.out.println("there is " + callbacks.size());
         return Response.status(200).entity(gson.toJson(PojoUtil.toPojo(callbacks))).build();
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getCurrentDate() {
+        Gson gson = new Gson();
+
+        return Response.status(200).entity(gson.toJson(TimeManager.GetInstance().getCurrentDate())).build();
     }
 
     @POST

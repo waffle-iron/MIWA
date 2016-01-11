@@ -59,6 +59,10 @@ public class TimeManager {
         return temp;
     }
 
+    public Date getCurrentDate(){
+        return calculatedSpeedTime(new Date());
+    }
+
     public void deleteAlarm(int callBackID){
         for(Alarm a : alarms){
             if (a.getCallback().getCallbackid() == callBackID){
