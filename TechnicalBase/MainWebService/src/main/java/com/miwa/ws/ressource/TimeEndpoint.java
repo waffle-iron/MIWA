@@ -30,7 +30,6 @@ public class TimeEndpoint {
     }
 
     @GET
-    @Path("/Current")
     @Path("/current")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getCurrentDate() {
