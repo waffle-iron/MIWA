@@ -19,8 +19,7 @@ public class SendMessage{
         if ("POST".equals(callback.getRequestType()))
         {
             System.out.println("send post request");
-            response = webResource.type("application/json")
-                    .post(ClientResponse.class, callback.getMessage());
+            response = webResource.post(ClientResponse.class, callback.getMessage());
 
             if (response.getStatus() != 201) {
                 throw new RuntimeException("Failed : HTTP error code : " + response.getStatus());
@@ -29,8 +28,7 @@ public class SendMessage{
         else if ("PUT".equals(callback.getRequestType()))
         {
             System.out.println("send put request");
-            response = webResource.type("application/json")
-                    .put(ClientResponse.class, callback.getMessage());
+            response = webResource.put(ClientResponse.class, callback.getMessage());
 
             if (response.getStatus() != 200) {
                 throw new RuntimeException("Failed : HTTP error code : " + response.getStatus());
@@ -39,8 +37,7 @@ public class SendMessage{
         else if ("DELETE".equals(callback.getRequestType()))
         {
             System.out.println("send delete request");
-            response = webResource.type("application/json")
-                    .delete(ClientResponse.class, callback.getMessage());
+            response = webResource.delete(ClientResponse.class, callback.getMessage());
 
             if (response.getStatus() != 200) {
                 throw new RuntimeException("Failed : HTTP error code : " + response.getStatus());
