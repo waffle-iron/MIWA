@@ -22,4 +22,4 @@ EXPOSE 80
 
 VOLUME /root
 
-CMD ["/root/bin/app", "-Dhttp.port=80", "-Dconfig.file=application-prod.conf"]
+CMD ["/root/bin/app", "-Dhttp.port=80", "-Dconfig.file=/root/bin/application-prod.conf"]
