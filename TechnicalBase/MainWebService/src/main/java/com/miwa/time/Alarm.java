@@ -61,13 +61,15 @@ public class Alarm{
         };
 
         Clock = ParseCron.GetInstance()
-                .nextExecution(TimeManager.GetInstance().calculatedSpeedTime(new Date()), parse);
-
+                .nextExecution(TimeManager.GetInstance().calculatedSpeedTime(), parse);
+//        Clock = ParseCron.GetInstance().nextExecution(new Date(), parse);
+        System.out.print("Nouvelle execution : " + Clock);
+        System.out.println(" | Date : " + new Date());
         if (getClock() == null){
             stopAlarm();
         }
 
-        Date time = TimeManager.GetInstance().calculatedSpeedTime(getClock());
+        Date time = TimeManager.GetInstance().calculatedSpeedTime();
         TimerClock.schedule(task, time);
     }
 

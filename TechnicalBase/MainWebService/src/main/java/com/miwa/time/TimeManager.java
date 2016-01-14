@@ -47,20 +47,36 @@ public class TimeManager {
         refresh();
     }
 
-    public Date calculatedSpeedTime(Date time){
-        Date now = new Date();
-        Date temp = new Date(time.getTime());
+    static private Date previousUpdate = new Date();
+    static private Date virtualDate = new Date();
 
-        long time1 = temp.getTime();
-        long time2 = now.getTime();
-        temp = new Date(((time1 - time2)
-                / getSpeed()) + time2);
+    public Date calculatedSpeedTime(){
+//        Date now = new Date();
+//        Date temp = new Date(time.getTime());
+//
+//        long time1 = temp.getTime();
+//        long time2 = now.getTime();
+//        temp = new Date(((time1 - time2)
+//                / getSpeed()) + time2);
+//
+//        return temp;
+        long previousTick = previousUpdate.getTime();
+        long virtualTick = virtualDate.getTime();
+        long nowTick = virtualDate.getTime();
 
-        return temp;
+        long temp = (nowTick - previousTick) * getSpeed();
+
+        virtualTick += temp;
+
+        Date newDate = new Date(((virtualTick - nowTick)
+                / getSpeed()) + nowTick);
+
+        previousUpdate = new Date();
+        return newDate;
     }
 
     public Date getCurrentDate(){
-        return calculatedSpeedTime(new Date());
+        return calculatedSpeedTime();
     }
 
     public void deleteAlarm(int callBackID){

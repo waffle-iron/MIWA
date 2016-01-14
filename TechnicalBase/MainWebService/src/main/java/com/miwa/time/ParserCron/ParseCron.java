@@ -65,7 +65,8 @@ public class ParseCron {
 
     public Date nextExecution(Date now, Cron cronMessage){
 
-        DateTime dtNow = new DateTime(TimeManager.GetInstance().calculatedSpeedTime(now));
+//        DateTime dtNow = new DateTime(TimeManager.GetInstance().calculatedSpeedTime(now));
+        DateTime dtNow = new DateTime(now);
 //Get date for last execution
         ExecutionTime executionTime = ExecutionTime.forCron(cronMessage);
 //Get date for next execution
