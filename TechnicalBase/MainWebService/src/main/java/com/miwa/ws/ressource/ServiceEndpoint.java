@@ -32,7 +32,6 @@ public class ServiceEndpoint {
         serviceDAO.AddService(service.toModel());
 
         return Response.status(201).entity(gson.toJson(service)).build();
-
     }
 
 }

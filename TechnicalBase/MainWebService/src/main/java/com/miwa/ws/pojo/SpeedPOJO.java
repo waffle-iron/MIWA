@@ -1,7 +1,7 @@
 package com.miwa.ws.pojo;
 
 public class SpeedPOJO {
-    private long speed = 42;
+    private long speed = 1;
 
     public SpeedPOJO(long speed) {
         this.speed = speed;
