@@ -2,6 +2,7 @@ package com.miwa.ws.ressource;
 
 import com.google.gson.Gson;
 import com.miwa.time.TimeManager;
+import com.miwa.ws.pojo.CurrentDatePojo;
 import com.miwa.ws.pojo.SpeedPOJO;
 
 import javax.ws.rs.*;
@@ -34,7 +35,7 @@ public class TimeEndpoint {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getCurrentDate() {
         Gson gson = new Gson();
-
-        return Response.status(200).entity(gson.toJson(TimeManager.GetInstance().getCurrentDate())).build();
+        CurrentDatePojo currentDate = new CurrentDatePojo(TimeManager.GetInstance().getCurrentDate());
+        return Response.status(200).entity(gson.toJson(currentDate)).build();
     }
 }
