@@ -9,7 +9,7 @@
             <generator class="identity" />
         </id>
         <property name="name" type="string">
-            <column name="NAME" length="10" not-null="true" unique="true" />
+            <column name="NAME" length="125" not-null="true" unique="true" />
         </property>
         <property name="hostname" type="string">
             <column name="HOSTNAME" length="125" not-null="true" unique="true" />

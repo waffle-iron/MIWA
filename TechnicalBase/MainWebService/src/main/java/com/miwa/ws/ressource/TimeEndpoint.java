@@ -1,7 +1,9 @@
 package com.miwa.ws.ressource;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.miwa.time.TimeManager;
+import com.miwa.ws.pojo.CurrentDatePojo;
 import com.miwa.ws.pojo.SpeedPOJO;
 
 import javax.ws.rs.*;
@@ -30,12 +32,11 @@ public class TimeEndpoint {
     }
 
     @GET
-    @Path("/Current")
     @Path("/current")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getCurrentDate() {
-        Gson gson = new Gson();
-
-        return Response.status(200).entity(gson.toJson(TimeManager.GetInstance().getCurrentDate())).build();
+        Gson gson = new GsonBuilder().setDateFormat("HH:mm dd/MM/yyy").create();
+        CurrentDatePojo currentDate = new CurrentDatePojo(TimeManager.GetInstance().getCurrentDate());
+        return Response.status(200).entity(gson.toJson(currentDate)).build();
     }
 }
