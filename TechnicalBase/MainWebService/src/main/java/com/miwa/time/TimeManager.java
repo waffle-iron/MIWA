@@ -62,10 +62,11 @@ public class TimeManager {
 //        return temp;
         long previousTick = previousUpdate.getTime();
         long virtualTick = virtualDate.getTime();
-        long nowTick = virtualDate.getTime();
+        long nowTick = new Date().getTime();
 
         long temp = (nowTick - previousTick) * getSpeed();
 
+        temp = temp < 0 ? temp *-1 : temp;
         virtualTick += temp;
 
         Date newDate = new Date(((virtualTick - nowTick)

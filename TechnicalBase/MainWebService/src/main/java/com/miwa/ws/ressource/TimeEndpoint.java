@@ -35,7 +35,8 @@ public class TimeEndpoint {
     @Path("/current")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getCurrentDate() {
-        Gson gson = new GsonBuilder().setDateFormat("HH:mm dd/MM/yyy").create();
+//        Gson gson = new GsonBuilder().setDateFormat("HH:mm dd/MM/yyy").create();
+        Gson gson = new GsonBuilder().create();
         CurrentDatePojo currentDate = new CurrentDatePojo(TimeManager.GetInstance().getCurrentDate());
         return Response.status(200).entity(gson.toJson(currentDate)).build();
     }
