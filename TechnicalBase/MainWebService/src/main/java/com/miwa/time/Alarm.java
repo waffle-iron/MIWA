@@ -4,6 +4,7 @@ import com.cronutils.model.Cron;
 import com.miwa.model.Callback;
 import com.miwa.time.Message.SendMessage;
 import com.miwa.time.ParserCron.ParseCron;
+import org.joda.time.DateTime;
 
 import java.util.Date;
 import java.util.Timer;
@@ -12,7 +13,7 @@ import java.util.TimerTask;
 public class Alarm{
 
     //le temps de reveil voulu
-    private Date Clock;
+    private DateTime Clock;
     private Timer TimerClock;
     private SendMessage message;
     private Callback callback;
@@ -29,11 +30,11 @@ public class Alarm{
         refresh();
     }
 
-    public Date getClock() {
+    public DateTime getClock() {
         return Clock;
     }
 
-    public void setClock(Date clock) {
+    public void setClock(DateTime clock) {
         Clock = clock;
         refresh();
     }
@@ -60,17 +61,20 @@ public class Alarm{
             }
         };
 
+        DateTime nowVirtual = TimeManager.GetInstance().calculatedSpeedTime();
+
         Clock = ParseCron.GetInstance()
-                .nextExecution(TimeManager.GetInstance().calculatedSpeedTime(), parse);
-//        Clock = ParseCron.GetInstance().nextExecution(new Date(), parse);
-        System.out.print("Nouvelle execution : " + Clock);
-        System.out.println(" | Date : " + new Date());
+                .nextExecution(nowVirtual, parse);
+
         if (getClock() == null){
             stopAlarm();
         }
 
-        Date time = TimeManager.GetInstance().calculatedSpeedTime();
-        TimerClock.schedule(task, time);
+        DateTime time = TimeManager.GetInstance().virtualToReal(getClock());
+//        System.out.println("Nouvelle execution virtuelle : " + Clock + " |  virtual date : " + TimeManager.GetInstance().getCurrentDate()
+//                + "   |   Nouvelle execution : " + time + "   |   Now : " + new DateTime());
+
+        TimerClock.schedule(task, time.toDate());
     }
 
     public SendMessage getMessage() {

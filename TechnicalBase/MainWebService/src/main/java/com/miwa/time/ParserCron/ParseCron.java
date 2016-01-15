@@ -6,7 +6,6 @@ import com.cronutils.model.definition.CronDefinitionBuilder;
 import com.cronutils.model.time.ExecutionTime;
 import com.cronutils.parser.CronParser;
 import com.cronutils.validator.CronValidator;
-import com.miwa.time.TimeManager;
 import org.joda.time.DateTime;
 
 import java.util.Date;
@@ -63,7 +62,7 @@ public class ParseCron {
         throw new Exception("Cron not correct : ss mm hh dayMonth Month dayWeek. example 0 * * * *");
     }
 
-    public Date nextExecution(Date now, Cron cronMessage){
+    public DateTime nextExecution(DateTime now, Cron cronMessage){
 
 //        DateTime dtNow = new DateTime(TimeManager.GetInstance().calculatedSpeedTime(now));
         DateTime dtNow = new DateTime(now);
@@ -71,12 +70,13 @@ public class ParseCron {
         ExecutionTime executionTime = ExecutionTime.forCron(cronMessage);
 //Get date for next execution
         DateTime nextExecution = executionTime.nextExecution(dtNow);
-        Date nextDate = nextExecution.toDate();
+//        Date nextDate = nextExecution.toDate();
 
-        if (now.getTime() > nextDate.getTime()) {
+//        if (now.getTime() > nextDate.getTime()) {
+        if (now.isAfter(nextExecution)) {
             return null;
         }
-        return nextDate;
-
+//        return nextDate;
+        return nextExecution;
     }
 }
