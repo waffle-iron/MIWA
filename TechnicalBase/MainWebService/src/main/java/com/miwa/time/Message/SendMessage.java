@@ -13,7 +13,7 @@ public class SendMessage{
     public Callback callback;
 
     public void send() {
-//        System.out.println("now : " + new Date() + "  |  virtual date : " + TimeManager.GetInstance().getCurrentDate());
+//        System.out.println("now : " + new Date() + "  |  virtual date : " + TimeManager.GetInstance().getCurrentDate() + "   |   " + callback.getMessage());
         try {
             Client client = Client.create();
 
@@ -21,6 +21,14 @@ public class SendMessage{
                     .resource(callback.getService().getHostname() + ":" + String.valueOf(callback.getService().getPort()) + callback.getEndpoint());
 
             ClientResponse response;
+            System.out.println("Begin send message : current date : " + TimeManager.GetInstance().getCurrentDate()
+                    + ", current speed : " + TimeManager.GetInstance().getSpeed()
+                    + ", current service : " + callback.getService()
+                    + ", current endpoint : " + callback.getEndpoint()
+                    + ", current RequestType : " + callback.getRequestType()
+                    + ", current message : " + callback.getMessage()
+                    + ", current cron : " + callback.getCron());
+
             if ("POST".equals(callback.getRequestType())) {
                 System.out.println("send post request");
                 response = webResource.post(ClientResponse.class, callback.getMessage());
@@ -54,7 +62,6 @@ public class SendMessage{
             System.err.println(ex.getMessage() + "   |   " + callback.getService() + "   |   " + callback.getEndpoint()
                     + "   |   " + callback.getRequestType() + "   |   " + callback.getMessage());
         }
-
     }
 }
 
