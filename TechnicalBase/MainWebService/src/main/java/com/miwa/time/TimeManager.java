@@ -51,7 +51,6 @@ public class TimeManager {
         test = (temp - test) + test;
 
         Speed = speed;
-
         refresh();
     }
 
@@ -71,11 +70,19 @@ public class TimeManager {
         return calculatedSpeedTime().toDate();
     }
 
+    public void deleteAlarmStopped(int callBackID){
+        for(Alarm a : new ArrayList<Alarm>(alarms)){
+            if (a.getCallback().getCallbackid() == callBackID){
+                alarms.remove(a);
+                break;
+            }
+        }
+    }
+
     public void deleteAlarm(int callBackID){
         for(Alarm a : new ArrayList<Alarm>(alarms)){
             if (a.getCallback().getCallbackid() == callBackID){
                 a.stopAlarm();
-                alarms.remove(a);
                 break;
             }
         }
