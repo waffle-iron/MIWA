@@ -27,6 +27,11 @@ public class TimeEndpoint {
     public Response setRatio(String message) {
         Gson gson = new Gson();
         SpeedPOJO speedPOJO = gson.fromJson(message, SpeedPOJO.class);
+
+        if (speedPOJO.getSpeed() < 0){
+            return Response.status(403).entity("Speed negative").build();
+        }
+
         TimeManager.GetInstance().setSpeed(speedPOJO.getSpeed());
         return Response.status(201).entity(gson.toJson(speedPOJO)).build();
     }

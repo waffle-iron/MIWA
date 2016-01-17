@@ -43,53 +43,26 @@ public class TimeManager {
         return Speed;
     }
 
+    static long test = 0;
     public void setSpeed(long speed) {
+        long nowMillis = new DateTime().getMillis();
+        long temp = nowMillis * speed - nowMillis;
+
+        test = (temp - test) + test;
+
         Speed = speed;
+
         refresh();
     }
 
-//    static private DateTime previousUpdate = new DateTime();
-//    static private DateTime virtualDate = new DateTime();
-
     public DateTime calculatedSpeedTime(){
-//        Interval intervalCall = new Interval(previousUpdate, virtualDate);
-//        org.joda.time.Duration durationCall = new org.joda.time.Duration(intervalCall.toDurationMillis() * getSpeed());
-//
-//        DateTime now = new DateTime();
-//        Interval interval;
-//        if (now.isAfter(virtualDate)){
-//            interval = new Interval(virtualDate, now);
-//        }
-//        else{
-//            interval = new Interval(now, virtualDate);
-//        }
-//
-//        org.joda.time.Duration duration = new org.joda.time.Duration(interval.toDurationMillis() * getSpeed());
-//
-//        DateTime newDate = now.plus(duration);
-//
-//        virtualDate = now.plus(durationCall);
-//        previousUpdate = now;
-//        return newDate;
-
-        DateTime virtualDate = new DateTime(new DateTime().getMillis() * getSpeed());
+        DateTime virtualDate = new DateTime((new DateTime().getMillis() * getSpeed()) - test);
 
         return virtualDate;
     }
 
     public DateTime virtualToReal(DateTime time){
-//        Interval interval;
-//        if (time.isAfter(virtualDate)){
-//            interval = new Interval(virtualDate, time);
-//        }
-//        else{
-//            interval = new Interval(time, virtualDate);
-//        }
-//
-//        org.joda.time.Duration duration = new org.joda.time.Duration(interval.toDurationMillis() / getSpeed());
-//        DateTime dateTime = new DateTime().plus(duration);
-
-        DateTime dateTime = new DateTime(time.getMillis() / getSpeed());
+        DateTime dateTime = new DateTime((time.getMillis() / getSpeed()) + test);
 
         return dateTime;
     }
@@ -99,7 +72,7 @@ public class TimeManager {
     }
 
     public void deleteAlarm(int callBackID){
-        for(Alarm a : new ArrayList<>(alarms)){
+        for(Alarm a : new ArrayList<Alarm>(alarms)){
             if (a.getCallback().getCallbackid() == callBackID){
                 a.stopAlarm();
                 alarms.remove(a);
