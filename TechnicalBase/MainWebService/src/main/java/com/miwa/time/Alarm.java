@@ -45,7 +45,7 @@ public class Alarm{
     public void stopAlarm(){
         TimerClock.cancel();
 
-        TimeManager.GetInstance().deleteAlarm(getCallback().getCallbackid());
+        TimeManager.GetInstance().deleteAlarmStopped(getCallback().getCallbackid());
     }
 
     public void refresh() {
