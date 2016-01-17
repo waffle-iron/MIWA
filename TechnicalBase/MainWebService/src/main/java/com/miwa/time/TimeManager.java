@@ -1,10 +1,8 @@
 package com.miwa.time;
 
-import com.miwa.model.Callback;
+import com.miwa.model.Domain.Callback;
 import org.joda.time.DateTime;
-import org.joda.time.Interval;
 
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -101,7 +99,7 @@ public class TimeManager {
     }
 
     public void deleteAlarm(int callBackID){
-        for(Alarm a : alarms){
+        for(Alarm a : new ArrayList<>(alarms)){
             if (a.getCallback().getCallbackid() == callBackID){
                 a.stopAlarm();
                 alarms.remove(a);

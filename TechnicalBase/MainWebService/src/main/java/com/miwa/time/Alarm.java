@@ -1,12 +1,11 @@
 package com.miwa.time;
 
 import com.cronutils.model.Cron;
-import com.miwa.model.Callback;
+import com.miwa.model.Domain.Callback;
 import com.miwa.time.Message.SendMessage;
 import com.miwa.time.ParserCron.ParseCron;
 import org.joda.time.DateTime;
 
-import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 

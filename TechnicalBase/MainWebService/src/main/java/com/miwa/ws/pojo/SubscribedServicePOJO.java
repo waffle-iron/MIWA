@@ -1,6 +1,6 @@
 package com.miwa.ws.pojo;
 
-import com.miwa.model.Service;
+import com.miwa.model.Domain.Service;
 
 public class SubscribedServicePOJO {
     private String name;
@@ -16,5 +16,37 @@ public class SubscribedServicePOJO {
     }
     public Service toModel() {
         return new Service(name, hostname, port, repeat);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getHostname() {
+        return hostname;
+    }
+
+    public void setHostname(String hostname) {
+        this.hostname = hostname;
+    }
+
+    public int getPort() {
+        return port;
+    }
+
+    public void setPort(int port) {
+        this.port = port;
+    }
+
+    public boolean isRepeat() {
+        return repeat;
+    }
+
+    public void setRepeat(boolean repeat) {
+        this.repeat = repeat;
     }
 }

@@ -1,11 +1,22 @@
-package com.miwa.model;
+package com.miwa.model.Domain;
 
+import javax.persistence.*;
+
+@Entity
 public class Callback {
+    @Id
+    @GeneratedValue
     private Integer callbackid;
+    @Column(nullable = false)
     private String cron;
+    @Column(nullable = false)
     private String message;
+    @Column(nullable = false)
     private String endpoint;
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "serviceid", nullable = false)
     private Service service;
+    @Column(nullable = false)
     private String requestType;
 
     public Callback() {

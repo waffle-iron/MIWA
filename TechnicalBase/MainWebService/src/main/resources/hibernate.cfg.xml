@@ -13,12 +13,13 @@
 
         <!-- JDBC connection pool (use the built-in) -->
         <property name="connection.pool_size">1</property>
-        <property name="show_sql">true</property><property name="format_sql">true</property>
+        <property name="show_sql">false</property>
+        <property name="format_sql">false</property>
 
         <!--create the database schema on startup if required -->
         <property name="hbm2ddl.auto">update</property>
         <!-- <mapping class="entities.Subscriber"/> -->
-        <mapping resource="com/miwa/model/Service.hbm.xml"></mapping>
-        <mapping resource="com/miwa/model/Callback.hbm.xml"></mapping>
+        <mapping class="com.miwa.model.Domain.Service"></mapping>
+        <mapping class="com.miwa.model.Domain.Callback"></mapping>
     </session-factory>
 </hibernate-configuration>

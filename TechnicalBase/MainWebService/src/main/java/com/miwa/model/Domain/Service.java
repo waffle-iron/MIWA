@@ -1,14 +1,30 @@
-package com.miwa.model;
+package com.miwa.model.Domain;
 
 
-import java.io.Serializable;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
-public class Service implements Serializable {
+@Entity
+public class Service {
+    @Id
+    @GeneratedValue
     private Integer serviceid;
+
+    @Column(nullable = false)
     private String name;
+
+    @Column(nullable = false)
     private String hostname;
+
+    @Column(nullable = false)
     private Integer port;
+
+    @Column(nullable = false)
     private Boolean repeat;
+
+    @OneToMany(mappedBy = "service", fetch = FetchType.EAGER, cascade = CascadeType.ALL , orphanRemoval = true)
+    private List<Callback> callbackList;
 
     public Service() {
     }
@@ -18,6 +34,7 @@ public class Service implements Serializable {
         this.hostname = hostname;
         this.port = port;
         this.repeat = repeat;
+        this.callbackList = new ArrayList<>();
     }
 
     public Integer getServiceid() {
@@ -58,5 +75,13 @@ public class Service implements Serializable {
 
     public void setRepeat(Boolean repeat) {
         this.repeat = repeat;
+    }
+
+    public List<Callback> getCallbackList() {
+        return callbackList;
+    }
+
+    public void setCallbackList(List<Callback> callbackList) {
+        this.callbackList = callbackList;
     }
 }

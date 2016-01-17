@@ -1,6 +1,6 @@
 package com.miwa.util;
 
-import com.miwa.model.Callback;
+import com.miwa.model.Domain.Callback;
 import com.miwa.ws.pojo.CallbackPOJO;
 
 import java.util.LinkedList;

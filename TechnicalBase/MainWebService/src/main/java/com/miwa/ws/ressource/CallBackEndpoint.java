@@ -1,10 +1,10 @@
 package com.miwa.ws.ressource;
 
 import com.google.gson.Gson;
-import com.miwa.dao.CallBackDAO;
-import com.miwa.dao.ServiceDAO;
-import com.miwa.model.Callback;
-import com.miwa.model.Service;
+import com.miwa.model.DAO.CallBackDao;
+import com.miwa.model.DAO.ServiceDao;
+import com.miwa.model.Domain.Callback;
+import com.miwa.model.Domain.Service;
 import com.miwa.time.TimeManager;
 import com.miwa.util.PojoUtil;
 import com.miwa.ws.pojo.CallbackPOJO;
@@ -21,7 +21,7 @@ public class CallBackEndpoint {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getCallBack() {
         Gson gson = new Gson();
-        List<Callback> callbacks = new CallBackDAO().getAll();
+        List<Callback> callbacks = new CallBackDao().getAll();
         System.out.println("there is " + callbacks.size());
         return Response.status(200).entity(gson.toJson(PojoUtil.toPojo(callbacks))).build();
     }
@@ -33,10 +33,11 @@ public class CallBackEndpoint {
 
         Gson gson = new Gson();
         CallbackPOJO callbackPOJO = gson.fromJson(message, CallbackPOJO.class);
-        Service service = new ServiceDAO().findByName(callbackPOJO.getService_name());
-
+        Service service = new ServiceDao().findByName(callbackPOJO.getService_name());
+        if (service == null)
+            return Response.status(400).build();
         Callback callback = new Callback(callbackPOJO.getCron(), callbackPOJO.getMessage(), callbackPOJO.getEndpoint(), service, callbackPOJO.getRequest_type());
-        new CallBackDAO().insert(callback);
+        new CallBackDao().insert(callback);
 
         try{
             TimeManager.GetInstance().AddAlarmToApplication(callback);
