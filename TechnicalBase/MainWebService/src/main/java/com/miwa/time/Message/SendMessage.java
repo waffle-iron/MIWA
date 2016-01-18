@@ -20,7 +20,8 @@ public class SendMessage {
             ClientResponse response;
             System.out.println("Begin send message : current date : " + TimeManager.GetInstance().getCurrentDate()
                     + ", current speed : " + TimeManager.GetInstance().getSpeed()
-                    + ", current service : " + callback.getService()
+                    + ", current service : " + callback.getService().getName()
+                    + ", current hostname : " + callback.getService().getHostname()
                     + ", current endpoint : " + callback.getEndpoint()
                     + ", current RequestType : " + callback.getRequestType()
                     + ", current message : " + callback.getMessage()
@@ -61,7 +62,7 @@ public class SendMessage {
             }
 
         } catch (Exception ex) {
-            System.err.println(ex.getMessage() + "   |   " + callback.getService() + "   |   " + callback.getEndpoint()
+            System.err.println(ex.getMessage() + "   |   " + callback.getService().getName() +  "   |   " + callback.getService().getHostname() +  "   |   " + callback.getEndpoint()
                     + "   |   " + callback.getRequestType() + "   |   " + callback.getMessage());
         }
     }
