@@ -11,6 +11,8 @@ public class TimeManager {
 
     private long Speed;
 
+    private long parameter;
+
     private List<Alarm> alarms;
 
     static TimeManager tm;
@@ -24,8 +26,11 @@ public class TimeManager {
     }
 
     private TimeManager() {
-        Speed = 60;
+        Speed = 2;
+        parameter = 0;
+
         alarms = new ArrayList<Alarm>();
+        setSpeed(Speed);
     }
 
     public void AddAlarmToApplication(Callback callback) throws Exception {
@@ -43,25 +48,26 @@ public class TimeManager {
         return Speed;
     }
 
-    static long test = 0;
     public void setSpeed(long speed) {
-        long nowMillis = new DateTime().getMillis();
-        long temp = nowMillis * speed - nowMillis;
+        long nowMillis = calculatedSpeedTime().getMillis();
+        long realMillis = new DateTime().getMillis();
 
-        test = (temp - test) + test;
+        parameter = (realMillis * speed) - nowMillis;
 
         Speed = speed;
         refresh();
+
+        System.out.println("set speed : " + getSpeed() + " to " + speed);
     }
 
     public DateTime calculatedSpeedTime(){
-        DateTime virtualDate = new DateTime((new DateTime().getMillis() * getSpeed()) - test);
+        DateTime virtualDate = new DateTime((new DateTime().getMillis() * getSpeed()) - parameter);
 
         return virtualDate;
     }
 
     public DateTime virtualToReal(DateTime time){
-        DateTime dateTime = new DateTime((time.getMillis() / getSpeed()) + test);
+        DateTime dateTime = new DateTime(((time.getMillis() + parameter) / getSpeed()));
 
         return dateTime;
     }

@@ -11,6 +11,8 @@ public class SendMessage {
     public Callback callback;
 
     public void send() {
+        //Debug
+//        System.out.println("Send message : " + new Date());
         try {
             Client client = Client.create();
 
