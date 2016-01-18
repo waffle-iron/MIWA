@@ -31,7 +31,7 @@ public class SendMessage {
                     System.out.println("send post request");
                     response = webResource.post(ClientResponse.class, callback.getMessage());
 
-                    if (response.getStatus() != 201) {
+                    if (response.getStatus() != 200 || response.getStatus() != 201) {
                         throw new RuntimeException("Failed : HTTP error code : " + response.getStatus());
                     }
                     break;
