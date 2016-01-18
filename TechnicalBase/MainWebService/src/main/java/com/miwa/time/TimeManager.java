@@ -24,7 +24,7 @@ public class TimeManager {
     }
 
     private TimeManager() {
-        Speed = 1;
+        Speed = 60;
         alarms = new ArrayList<Alarm>();
     }
 
