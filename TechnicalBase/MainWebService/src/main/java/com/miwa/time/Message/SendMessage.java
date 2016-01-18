@@ -32,7 +32,7 @@ public class SendMessage {
                     System.out.println("send post request");
                     response = webResource.post(ClientResponse.class, callback.getMessage());
 
-                    if (response.getStatus() != 201) {
+                    if (!(response.getStatus() == 200 || response.getStatus() == 201)) {
                         throw new RuntimeException("Failed : HTTP error code : " + response.getStatus());
                     }
                     break;
@@ -40,7 +40,7 @@ public class SendMessage {
                     System.out.println("send put request");
                     response = webResource.put(ClientResponse.class, callback.getMessage());
 
-                    if (response.getStatus() != 200) {
+                    if (!(response.getStatus() == 200 || response.getStatus() == 201)) {
                         throw new RuntimeException("Failed : HTTP error code : " + response.getStatus());
                     }
                     break;
@@ -48,14 +48,14 @@ public class SendMessage {
                     System.out.println("send delete request");
                     response = webResource.delete(ClientResponse.class, callback.getMessage());
 
-                    if (response.getStatus() != 200) {
+                    if (!(response.getStatus() == 200 || response.getStatus() == 201)) {
                         throw new RuntimeException("Failed : HTTP error code : " + response.getStatus());
                     }
                     break;
                 default:
                     System.out.println("send get request");
                     response = webResource.get(ClientResponse.class);
-                    if (response.getStatus() != 200) {
+                    if (!(response.getStatus() == 200 || response.getStatus() == 201)) {
                         throw new RuntimeException("Failed : HTTP error code : " + response.getStatus());
                     }
                     break;
